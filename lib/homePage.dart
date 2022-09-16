@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'dart:convert' as convert;
+
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -8,6 +11,25 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String _cotacao = "A cotação atual é  : ";
+
+  void api() async {
+    var url = Uri.http(
+      "blockchain.com",
+      "/pt/ticker",
+    );
+
+    var response = await http.get(url);
+    var jsonResponse =
+        convert.jsonDecode(response.body) as Map<String, dynamic>;
+
+    var itemCount = jsonResponse['BRL']['buy'];
+    setState(() {
+      _cotacao = " A cotação atual é  : ${itemCount}";
+      ;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,13 +51,13 @@ class _HomePageState extends State<HomePage> {
           ),
           Padding(
             padding: EdgeInsets.all(10),
-            child: Text("A cotação atual é : ",
+            child: Text(_cotacao,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
           ),
           Padding(
               padding: EdgeInsets.all(10),
               child: RaisedButton(
-                onPressed: () {},
+                onPressed: api,
                 child: Text("Atualizar"),
                 color: Colors.amber,
               ))
