@@ -11,10 +11,36 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
       ),
+      body: SingleChildScrollView(
+          child: Container(
+        color: Colors.white,
+        child: Column(children: [
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Image.network(
+              "https://i0.wp.com/vagasabertas.org/wp-content/uploads/2018/01/Como-investir-em-Biticoin-Cursos-Dicas.jpg?fit=1060%2C410&ssl=1",
+              width: 400,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: Text("A cotação atual é : ",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+          ),
+          Padding(
+              padding: EdgeInsets.all(10),
+              child: RaisedButton(
+                onPressed: () {},
+                child: Text("Atualizar"),
+                color: Colors.amber,
+              ))
+        ]),
+      )),
     );
   }
 }
